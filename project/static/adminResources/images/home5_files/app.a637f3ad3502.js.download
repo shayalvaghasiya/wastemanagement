@@ -1,0 +1,290 @@
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+'use strict';
+
+var _slider = require('./modules/slider');
+
+var _slider2 = _interopRequireDefault(_slider);
+
+var _stickyHeader = require('./modules/stickyHeader');
+
+var _stickyHeader2 = _interopRequireDefault(_stickyHeader);
+
+var _pageScroll = require('./modules/pageScroll');
+
+var _pageScroll2 = _interopRequireDefault(_pageScroll);
+
+var _accordion = require('./modules/accordion');
+
+var _accordion2 = _interopRequireDefault(_accordion);
+
+var _mobileMenu = require('./modules/mobileMenu');
+
+var _mobileMenu2 = _interopRequireDefault(_mobileMenu);
+
+var _productModal = require('./modules/product-modal');
+
+var _productModal2 = _interopRequireDefault(_productModal);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// You can write a call and import your functions in this file.
+//
+// This file will be compiled into app.js and will not be minified.
+// Feel free with using ES6 here.
+
+// import {NAME} from './modules/...';
+(function ($) {
+  // When DOM is ready
+  $(function () {
+    _slider2.default.owlGallery();
+    _stickyHeader2.default.goSticky();
+    _accordion2.default.initAcc();
+    _mobileMenu2.default.handler();
+    _pageScroll2.default.animateScroll();
+    _productModal2.default.openModal();
+  });
+})(jQuery);
+
+},{"./modules/accordion":2,"./modules/mobileMenu":3,"./modules/pageScroll":4,"./modules/product-modal":5,"./modules/slider":6,"./modules/stickyHeader":7}],2:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var accordion = {
+  initAcc: function initAcc() {
+    var $accItem = $('.accordion__item');
+    function accordionHandler() {
+      setTimeout(function () {
+        $accItem.click(function () {
+          $(this).toggleClass('active').find('.content').slideToggle(200);
+        });
+      }, 1);
+    }
+    function init() {
+      accordionHandler();
+    }
+    return {
+      init: init()
+    };
+  }
+};
+
+exports.default = accordion;
+
+},{}],3:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var mobileMenu = {
+  handler: function handler() {
+    var $openBtn = $('.mobile-btn');
+    var $navbar = $('.navbar');
+    function menuHandler() {
+      $openBtn.on('click', function () {
+        $navbar.fadeToggle();
+      });
+    }
+    function init() {
+      menuHandler();
+    }
+    return {
+      init: init()
+    };
+  }
+};
+
+exports.default = mobileMenu;
+
+},{}],4:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var pageScroll = {
+  animateScroll: function animateScroll() {
+    var $page = $('html, body');
+    var $anchorLink = $('a.anchor');
+    var ANIMATION_SPEED = 600;
+    var HEADER_HEIGHT = 100;
+    function scrolling() {
+      $anchorLink.on('click', function () {
+        var $position = $($.attr(this, 'href')).offset().top;
+        $page.animate({
+          scrollTop: $position - HEADER_HEIGHT + 'px'
+        }, ANIMATION_SPEED);
+        return false;
+      });
+    }
+    function init() {
+      if (!$page.length && !$anchorLink.length) return;
+      scrolling();
+    }
+    return {
+      init: init()
+    };
+  }
+};
+
+exports.default = pageScroll;
+
+},{}],5:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var productModal = {
+  openModal: function openModal() {
+    var $header = $('header');
+    var $modal = $('#productModal');
+    var $modalBg = $('.modal-backdrop');
+    var OPEN_CLASS = 'show';
+    var OPEN_HEIGHT = $(document).height() / 2;
+    var counter = 0;
+    function open() {
+      $modal.addClass(OPEN_CLASS).removeClass('fade');
+      $modalBg.addClass(OPEN_CLASS).css('display', 'block');
+      $modal.css('display', 'block');
+    }
+    function close() {
+      $modal.removeClass(OPEN_CLASS).addClass('fade');
+      $modalBg.removeClass(OPEN_CLASS).css('display', 'none');
+      $modal.css('display', 'none');
+      counter = +1;
+    }
+    function checkDistanceFromTop() {
+      $(window).scroll(function () {
+        var DISTANCE = $header.offset().top;
+        if (DISTANCE > OPEN_HEIGHT && DISTANCE < OPEN_HEIGHT + 100 && counter === 0) {
+          open();
+        }
+      });
+    }
+    function init() {
+      if (!$modal.length) return;
+      checkDistanceFromTop();
+      document.onclick = function () {
+        close();
+      };
+    }
+    return {
+      init: init()
+    };
+  }
+};
+
+exports.default = productModal;
+
+},{}],6:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var slider = {
+  owlGallery: function owlGallery() {
+    function sliderInit() {
+      $('.slider-items.owl-carousel').owlCarousel({
+        items: 1,
+        loop: true,
+        dots: true,
+        nav: true,
+        navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"]
+      });
+
+      $('.quote-slider-items.owl-carousel').owlCarousel({
+        items: 1,
+        loop: true,
+        dots: true,
+      });
+
+      $('.main-slider.owl-carousel').owlCarousel({
+        items: 1,
+        loop: true,
+        dots: true,
+        nav: true
+      });
+
+      $('.slider-news.owl-carousel').owlCarousel({
+        items: 1,
+        loop: true,
+        dots: true,
+        nav: true
+      });
+      $('.list-partners.owl-carousel').owlCarousel({
+        loop: true,
+        dots: true,
+        nav: true,
+        margin: 20,
+        responsive: {
+          0: {
+            items: 1,
+            nav: false
+          },
+          768: {
+            items: 2,
+            nav: true
+          },
+          1024: {
+            items: 3
+          },
+          1440: {
+            items: 4
+          },
+          1600: {
+            items: 5,
+            margin: 70
+          }
+        }
+      });
+    }
+    function init() {
+      sliderInit();
+    }
+    return {
+      init: init()
+    };
+  }
+};
+exports.default = slider;
+
+},{}],7:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var stickyHeader = {
+  goSticky: function goSticky() {
+    var $header = $('.header');
+    var STICKY_CLASS = 'fixed';
+    var STICKY_HEIGHT = 60;
+    var $position = $(window).scrollTop();
+    function headerHandler() {
+      $(window).scroll(function () {
+        $.event.add(window, 'scroll', function () {
+          if ($position > STICKY_HEIGHT) {
+            $header.addClass(STICKY_CLASS);
+          } else {
+            $header.removeClass(STICKY_CLASS);
+          }
+        });
+      });
+    }
+    function init() {
+      if (!$header.length) return;
+      headerHandler();
+    }
+    return {
+      init: init()
+    };
+  }
+};
+
+exports.default = stickyHeader;
+
+},{}]},{},[1]);

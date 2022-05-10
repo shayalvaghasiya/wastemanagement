@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Waste Managment With AI User DashBoard</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../static/adminResources/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/vendor.bundle.addons.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../../static/adminResources/css/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="../../static/adminResources/images/favicon.png"/>
+</head>
+
+<body>
+<div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="content-wrapper d-flex align-items-center auth">
+            <div class="row w-100">
+                <div class="col-lg-4 mx-auto">
+                    <div class="auth-form-light text-left p-5" style="box-shadow: 10px 10px 5px grey">
+                        <div class="brand-logo">
+                             <img src="../../static/adminResources/images/WM 1 logo.png"  style="display: block;margin-left: auto;margin-right: auto;top:50%" >
+                        </div>
+
+                        <h6 class="font-weight-light">OTP has been email to your email account.</h6>
+                        <form class="pt-3" action="/user/updatePassword" method="post">
+                            <div class="form-group">
+                                <label><h5> Enter OTP</h5></label>
+                                <input type="number" name="loginotp" class="form-control form-control-lg"
+                                       placeholder="OTP">
+                            </div>
+
+                             {% if error %}
+                                <p align="left" style="color: red"><strong>{{ error }}</strong></p>
+                            {% endif %}
+                            <div class="mt-3">
+                                <input type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
+                                       value="Submit">
+                            </div>
+
+                            <!-- <div class="text-center mt-4 font-weight-light">
+                             Don't have an account? <a href="register.html" class="text-primary">Create</a>
+                           </div>-->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+<!-- plugins:js -->
+<script src="../../static/adminResources/js/vendor.bundle.base.js"></script>
+<script src="../../static/adminResources/js/vendor.bundle.addons.js"></script>
+<!-- endinject -->
+<!-- inject:js -->
+<script src="../../static/adminResources/js/off-canvas.js"></script>
+<script src="../../static/adminResources/js/hoverable-collapse.js"></script>
+<script src="../../static/adminResources/js/template.js"></script>
+<script src="../../static/adminResources/js/settings.js"></script>
+<script src="../../static/adminResources/js/to-dolist.js"></script>
+<!-- endinject -->
+</body>
+
+</html>
